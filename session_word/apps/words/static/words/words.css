@@ -1,0 +1,37 @@
+*{
+	margin: 10px;
+}
+#content{
+	width: 80%;
+	margin: 80px auto;
+}
+#content div{
+	width: 45%;
+	margin: -2px;	
+	display: inline-block;
+	vertical-align: top;
+	height: 500px;
+}
+#add{
+	border-right: 1px solid black;
+	padding: 10px;
+}
+#display{
+	border-left: 1px solid black;
+	padding: 10px;
+}
+.red{
+	color: red;
+}
+.green{
+	color: green;
+}
+.blue{
+	color: blue;
+}
+.big{
+	font-size: 30px;
+}
+.normal{
+	font-size: 16px;
+}

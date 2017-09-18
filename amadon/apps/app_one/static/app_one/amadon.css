@@ -1,0 +1,17 @@
+table{
+	border: 1px solid black;
+	margin: 20px;
+	width: 70%;
+	border-style: collapse;
+}
+th,td{
+	padding: 5px;
+	text-align: left;
+	border-left: 1px solid black;	
+}
+tr{
+	height: 20px;
+}
+tr:nth-child(even){
+	background-color:lightgrey;
+}

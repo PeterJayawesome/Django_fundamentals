@@ -1,0 +1,27 @@
+#gold{
+	display:inline_block;
+	width: 50px;
+	margin-left: 20px;
+	border: 2px solid black;
+}
+.form{
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	display: inline-block;
+	border: 2px solid black;
+	margin: 10px;
+}
+#activity{
+	border: 2px solid black;
+	height: 300px;
+	overflow: scroll;
+	width: 900px
+	margin: 20px;
+}
+.red{
+	color: red;
+}
+.green{
+	color: green;
+}
