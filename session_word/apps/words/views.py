@@ -7,7 +7,7 @@ from time import strftime,localtime
 def index(request):
 	if 'words' not in request.session:
 		request.session['words']= []
-	print request.session['words']
+	# print request.session['words']
 	return render(request,'words/session_words.html')
 def clear(request):
 	request.session.clear()
@@ -20,8 +20,12 @@ def add_word(request):
 			'size': 'normal',
 			'time': strftime("%I:%M:%S%p, %B %d%Y")
 		})
-		# request.session['test'] = 1 #without this line words can not be appended? WHY?
-		print request.session['words']
+		request.session.modified = True 
+		# .append does not actually change the modified status to True,
+		# we need set the modified manually after appending.
+		# request.session['test'] = 1 
+		# An '=' assignment can set the session.modified to True, even those keys 
+		# not related to the one. 
 		if 'size' in request.POST:
 			request.session['words'][-1]['size'] = 'big'
 	return redirect('/session_words')

@@ -22,4 +22,7 @@ urlpatterns = [
   	url(r'^surveys/',include('apps.surveys.urls')),
 	url(r'^',include('apps.users.urls')),
     url(r'^random_word/',include('apps.random_word.urls')),
+    url(r'^dojo_ninjas/',include('apps.Dojo_Ninjas.urls')),
+    url(r'^book_authors/',include('apps.book_authors.urls')),
+    url(r'^likes_books/',include('apps.likes_books.urls')),
 ]

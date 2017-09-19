@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit User {{id}}</title>
+</head>
+<body>
+	<h2>Edit User {{id}}</h2>
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+	<form action="/users/create" method="POST">
+		{% csrf_token %}
+		<p>First name:</p>
+		<input type="text" name="first_name" value="{{user.first_name}}">
+		<p>Last name:</p>
+		<input type="text" name="last_name" value="{{user.last_name}}">
+		<p>Email:</p>
+		<input type="text" name="email" value="{{user.email}}">
+		<input type="submit" name="update" value="Create">
+	</form>
+	<nav>
+		<a href="/users/{{id}}">Show</a>
+		<a href="/users">Go Back</a>
+	</nav>
+</body>
+</html>
