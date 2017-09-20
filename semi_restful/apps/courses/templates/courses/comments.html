@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comments</title>
+</head>
+<body>
+	<h2>Course Comments</h2>
+	<table>
+		<tr>
+			<td><p>Name:</p></td>
+			<td><p>{{course.name}}</p></td>
+		</tr>
+		<tr>
+			<td><p>Description:</p></td>
+			<td><p>{{course.desc}}</p></td>
+		</tr>
+	</table>
+	<form action="/courses/{{course.id}}/comments/create" method="POST">
+		{% csrf_token %}
+		<p>Comment:</p>
+		<textarea name="content"></textarea><br>
+		<a href="/courses">Go Back</a> | 
+		<input type="submit" name="submit" value="post">
+	</form>
+	{% if comments %}
+	<ul>
+		{% for comment in comments %}
+			<li>{{comment.content}}-{{comment.created_at}}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+</body>
+</html>
