@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Reviews</title>
+</head>
+<body>
+	<div id="topbar">
+		<a href="/books">Home</a>
+		<a href="/books/add">Add Book and Review</a>
+		<a href="/">Logout</a>
+	</div>
+	<h3>User Alias: {{user.alias}}</h3>
+	<p>Name: {{user.name}}</p>
+	<p>Email: {{user.email}}</p>
+	<p>Total Reviews: {{count}}</p>
+	<p>Posted Reviews on the following books:</p>
+	{% if books %}
+		<div>
+		{% for book in books%}
+			<a href="/books/{{book.id}}">{{book.title}}</a><br>
+		{% endfor %}
+		</div>
+	{% endif %}
+</body>
+</html>

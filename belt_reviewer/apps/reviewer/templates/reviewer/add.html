@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Book and Review</title>
+</head>
+<body>
+	<div>
+		<a href="/books">Home</a>
+		<a href="/">Logout</a>
+	</div>
+	<h2>Add a New Nook Title and a Review:</h2>
+	{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+	<form action="/create" method="POST">
+		{% csrf_token %}
+		<label>Book Title:</label>
+		<input type="text" name="title">
+		<p>Author:</p>
+		<label>Choose from the list:</label>
+		<select name="author">
+			{% if authors %}
+				{% for author in authors %}
+					<option value="{{author.id}}">{{author.name}}</option>
+				{% endfor %}
+			{% endif %}
+		</select><br>
+		<label>Or add a new author:</label>
+		<input type="text" name="new_author"><br>
+		<p>Review:</p>
+		<textarea name="review"></textarea><br>
+		<label>Rating:</label>
+		<input type="number" name="rating" min="0" max="5" value="5">
+		<label> stars</label><br>
+		<input type="submit" name="submit" value="Add Book and Review">
+	</form>
+</body>
+</html>

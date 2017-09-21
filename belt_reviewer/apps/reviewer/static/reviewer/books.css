@@ -1,0 +1,27 @@
+#topbar p{
+	display: inline-block;
+}
+#topbar a{
+	margin-left: 20px;
+}
+#reviews{
+	width: 40%;
+	margin: 20px;
+	display: inline-block;
+}
+.review{
+	border-top: 1px solid black;
+}
+#other_books{
+	display: inline-block;
+	vertical-align: top;
+}
+#books{
+	height: 200px;
+	border: 1px solid black;
+	overflow: scroll;
+}
+#form{
+	display: inline-block;
+	vertical-align: top;
+	}
