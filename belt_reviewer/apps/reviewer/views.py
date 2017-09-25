@@ -8,6 +8,7 @@ import bcrypt
 def index(request):
 	request.session['log'] = False
 	return render(request,"reviewer/log.html")
+
 def login(request):
 	if request.method == "POST":
 		request.session['log_reg'] = 'log'
@@ -20,6 +21,7 @@ def login(request):
 			request.session['user_id'] = User.objects.get(email = request.POST['email']).id
 			return redirect('/books')
 	return redirect('/')
+
 def register(request):
 	if request.method == "POST":
 		request.session['log_reg']='reg'
@@ -34,6 +36,7 @@ def register(request):
 		request.session['user_id'] = User.objects.last().id
 		return redirect('/books')
 	return redirect('/')
+
 def books(request):
 	if "log" in request.session and request.session['log']:
 		user = User.objects.get(id=request.session['user_id'])
@@ -46,6 +49,7 @@ def books(request):
 		}
 		return render(request,"reviewer/book.html",context)
 	return redirect('/')
+
 def add(request):
 	if "log" in request.session and request.session['log']:
 		context={"authors": Author.objects.all()}
@@ -62,11 +66,12 @@ def review(request,book_id):
 		}
 		return render(request,"reviewer/review.html",context)
 	return redirect('/books')
+
 def user(request,user_id):
 	users=User.objects.filter(id = user_id)
 	if users:
 		# select all books this user writed a review on:(duplicate books?)
-		books = [review.book for review in users[0].reviews.all()]
+		books = [review.book for review in users[0].reviews.all()[::-1]]
 		count = users[0].reviews.count()
 		context={
 			"user": users[0],
@@ -75,23 +80,27 @@ def user(request,user_id):
 		}
 		return render(request,"reviewer/user.html",context)
 	return redirect('/books')
+
 def create(request):# can have a validator here
 	if request.method == "POST":
 		error = Review.objects.review_validator(request.POST)
 		if len(error):
 			messages.error(request,error['review'],extra_tags="review")
 			return redirect('/books/add')
-		if "new_author" in request.POST:
+		if "title" not in request.POST or not len(request.POST['title']):
+			messages.error(request,"Please enter a title",extra_tags="book")
+			return redirect('/books/add')
+		if "new_author" in request.POST and len(request.POST['new_author']):
 			author = Author.objects.new_author_validator(request.POST)
 			if author:
-				postData = {"author": author, "title": request.POST['title']}
-				if Book.objects.book_duplicate_validator(postData):
+				postData = {"author": author.name, "title": request.POST['title']}
+				if Book.objects.add_book_validator(postData):
 					messages.error(request,"This book has been added before",extra_tags="book")
 					return redirect('/books/add')
 			else:
 				Author.objects.create(name = request.POST['new_author'])
 				author = Author.objects.last()
-		elif Book.objects.book_duplicate_validator(request.POST):
+		elif Book.objects.add_book_validator(request.POST):
 			messages.error(request,"This book has been added before",extra_tags="book")
 			return redirect('/books/add')
 		else:
@@ -103,6 +112,7 @@ def create(request):# can have a validator here
 			user=User.objects.get(id=request.session['user_id']))
 		return redirect("/books/"+str(Book.objects.last().id))
 	return redirect("/books/add")
+
 def write_review(request,book_id):# could have a validator here
 	if request.method == "POST":
 		error = Review.objects.review_validator(request.POST)
@@ -114,6 +124,7 @@ def write_review(request,book_id):# could have a validator here
 				book=Book.objects.get(id=book_id),
 				user=User.objects.get(id=request.session['user_id']))
 	return redirect("/books/"+book_id)
+
 def delete_review(request,book_id,review_id):
 	review = Review.objects.get(id = review_id)
 	

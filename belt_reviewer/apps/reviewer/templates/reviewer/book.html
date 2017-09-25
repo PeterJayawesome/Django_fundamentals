@@ -2,37 +2,40 @@
 <html>
 <head>
 	<title>Books Home</title>
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'reviewer/books.css'%}">
+	<!-- {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'reviewer/books.css'%}"> -->
+	<link rel="stylesheet" type="text/css" href="../../static/reviewer/books.css">
 </head>
 <body>
-	<div id="topbar">
-		<p>Welcome, {{user.alias}}</p>
-		<a href="/books/add">Add Book and Review</a>
-		<a href="/">Log out</a>
-	</div>
-	<div id="reviews">
-		<h3>Recent Book Reviews:</h3>
-		{% if reviews %}
-			{% for review in reviews %}
-				<div class="review">
-					<a href="/books/{{review.book.id}}">{{review.book.title}}</a>
-					<p>Rating: {{review.rating}} stars</p>
-					<a href="/user/{{review.user.id}}">{{review.user.alias}}</a>
-					<span> says: {{review.review}}</span><br>
-					<p>Posted on {{review.created_at}}</p>
-				</div>
-			{% endfor %}
-		{% endif %}
-	</div>
-	<div id="other_books">
-		<h3>Other Books with Reviews:</h3>
-		<div id="books">
-			{%if books%}
-				{% for book in books %}
-					<a href="/books/{{book.id}}">{{book.title}}</a>
+	<div id="wrap">
+		<div id="topbar">
+			<p>Welcome, {{user.alias}}</p>
+			<a href="/">Log out</a>
+			<a href="/books/add">Add Book and Review</a>
+		</div>
+		<div id="left">
+			<h3>Recent Book Reviews:</h3>
+			{% if reviews %}
+				{% for review in reviews %}
+					<div class="review">
+						<a href="/books/{{review.book.id}}">{{review.book.title}}</a>
+						<p>Rating: {{review.rating}} stars</p>
+						<a href="/user/{{review.user.id}}">{{review.user.alias}}</a>
+						<span> says: {{review.review}}</span><br>
+						<p>Posted on {{review.created_at}}</p>
+					</div>
 				{% endfor %}
 			{% endif %}
+		</div>
+		<div id="right">
+			<h3>Other Books with Reviews:</h3>
+			<div id="books">
+				{%if books%}
+					{% for book in books %}
+						<a href="/books/{{book.id}}">{{book.title}}</a><br>
+					{% endfor %}
+				{% endif %}
+			</div>
 		</div>
 	</div>
 </body>

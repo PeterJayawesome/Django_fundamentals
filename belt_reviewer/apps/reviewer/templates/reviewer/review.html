@@ -2,47 +2,51 @@
 <html>
 <head>
 	<title>Add Book and Review</title>
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'reviewer/books.css'%}">
+	<!-- {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'reviewer/books.css'%}" media="screen"> -->
+	<link rel="stylesheet" type="text/css" href="../../static/reviewer/books.css">
 </head>
 <body>
-	<div class="topbar">
-		<a href="/books">Home</a>
-		<a href="/">Logout</a>
-	</div>
-	<h3>{{book.title}}</h3>
-	<p>Author: {{book.author.name}}</p>
-	<div id="reviews">
-		{% if reviews %}
-			{% for review in reviews %}
-				<div class="review">
-					<p>Rating: {{review.rating}}</p>
-					<a href="/user/{{review.user.id}}">{{review.user.alias}}</a>
-					<p> says: {{review.review}}</p>
-					<p class="time">Posted on {{review.created_at}}</p>
-					{% if review.user.id == request.session.user_id%}
-						<a href="/books/{{book.id}}/{{review.id}}/delete">Delete this Review</a>
-					{% endif %}
-				</div>
-			{% endfor %}
-		{% endif %}
-	</div>
-	<div id="form">
-		<h4>Add a Review:</h4>
-		{% if messages %}
-			<ul class="messages">
-			    {% for message in messages %}
-			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-			    {% endfor %}
-			</ul>
-		{% endif %}
-		<form action="/books/{{book.id}}/review" method="POST">
-			{% csrf_token %}
-			<textarea name="review"></textarea><br>
-			<label>Rating:</label>
-			<input type="number" name="rating" min="0" max="5" value="5"> <label> stars</label><br>
-			<input type="submit" name="submit" value="Submit Review">
-		</form>
+	<div id="wrap">
+		<div id="topbar">
+			<p>&nbsp</p>
+			<a href="/">Logout</a>
+			<a href="/books">Home</a>
+		</div>
+		<h3>{{book.title}}</h3>
+		<p>Author: {{book.author.name}}</p>
+		<div id="left">
+			{% if reviews %}
+				{% for review in reviews %}
+					<div class="review">
+						<p>Rating: {{review.rating}}</p>
+						<a href="/user/{{review.user.id}}">{{review.user.alias}}</a>
+						<p> says: {{review.review}}</p>
+						<p class="time">Posted on {{review.created_at}}</p>
+						{% if review.user.id == request.session.user_id%}
+							<a href="/books/{{book.id}}/{{review.id}}/delete">Delete this Review</a>
+						{% endif %}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+		<div id="right">
+			<h4>Add a Review:</h4>
+			{% if messages %}
+				<ul class="messages">
+				    {% for message in messages %}
+				    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				    {% endfor %}
+				</ul>
+			{% endif %}
+			<form action="/books/{{book.id}}/review" method="POST">
+				{% csrf_token %}
+				<textarea name="review"></textarea><br>
+				<label>Rating:</label>
+				<input type="number" name="rating" min="0" max="5" value="5"> <label> stars</label><br>
+				<input type="submit" name="submit" value="Submit Review">
+			</form>
+		</div>
 	</div>
 </body>
 </html>

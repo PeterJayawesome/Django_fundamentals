@@ -25,7 +25,7 @@
 		<select name="author">
 			{% if authors %}
 				{% for author in authors %}
-					<option value="{{author.id}}">{{author.name}}</option>
+					<option value="{{author.name}}">{{author.name}}</option>
 				{% endfor %}
 			{% endif %}
 		</select><br>

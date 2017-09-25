@@ -1,27 +1,37 @@
+#wrap{
+	width: 70%;
+	margin: 0px auto;
+}
+#topbar{
+	margin: 2px;
+	background-color: lightblue;
+	color: white;
+}
 #topbar p{
 	display: inline-block;
-}
-#topbar a{
 	margin-left: 20px;
 }
-#reviews{
-	width: 40%;
-	margin: 20px;
+#topbar a{
+	color: white;
+	margin: 15px 10px;
+	float: right;
+}
+#left{
+	width: 55%;
+	margin: 0px 20px; 
 	display: inline-block;
 }
 .review{
 	border-top: 1px solid black;
 }
-#other_books{
+#right{
+	width: 35%;
 	display: inline-block;
 	vertical-align: top;
 }
 #books{
+	width: 90%;
 	height: 200px;
 	border: 1px solid black;
 	overflow: scroll;
 }
-#form{
-	display: inline-block;
-	vertical-align: top;
-	}
